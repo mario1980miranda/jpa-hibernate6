@@ -1,6 +1,6 @@
-package com.code.truck.util;
+package com.code.truck.ecommerce.util;
 
-import com.code.truck.model.Produto;
+import com.code.truck.ecommerce.model.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -12,8 +12,8 @@ public class StartPersistenceUnity {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         // put your tests here
-        Produto p = entityManager.find(Produto.class, 1);
-        System.out.println(p.getId());
+        //Produto p = entityManager.find(Produto.class, 1);
+        //System.out.println(p.getId());
 
         entityManager.close();
         entityManagerFactory.close();

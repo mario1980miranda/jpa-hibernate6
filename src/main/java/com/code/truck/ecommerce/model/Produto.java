@@ -1,4 +1,4 @@
-package com.code.truck.model;
+package com.code.truck.ecommerce.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

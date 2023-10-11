@@ -1,36 +1,10 @@
 package com.code.truck.ecommerce;
 
 import com.code.truck.ecommerce.model.Produto;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class QueryingDatabaseTests {
-    private static EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
-
-    @BeforeAll
-    public static void setUpBeforeAllTests() throws Exception {
-        entityManagerFactory = Persistence
-                .createEntityManagerFactory("Ecommerce-PU");
-    }
-
-    @AfterAll
-    public static void tearDownAfterAllTests() {
-        entityManagerFactory.close();
-    }
-
-    @BeforeEach
-    public void setUpForEachTest() {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
-    @AfterEach
-    public void afterEachTest() {
-        entityManager.close();
-    }
-
+public class QueryingDatabaseTests extends EntityManagerBaseTests {
     @Test
     public void retrieveDataWithFind() {
 

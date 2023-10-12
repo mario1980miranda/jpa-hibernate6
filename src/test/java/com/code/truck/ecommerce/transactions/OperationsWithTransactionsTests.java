@@ -10,6 +10,26 @@ import java.math.BigDecimal;
 public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
     @Test
+    public void updateProduto() {
+
+        Produto produto = new Produto();
+        produto.setId(1);
+        produto.setNome("Novo Kindle Paperwhite");
+        //produto.setDescricao("Conheça o novo Kindle, agora com bla, bla bla");
+        //produto.setPreco(BigDecimal.valueOf(499.90d));
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 1);
+
+        Assertions.assertNotNull(productToAssertAfterClearCache);
+        Assertions.assertEquals("Novo Kindle Paperwhite", produto.getNome());
+    }
+    @Test
     public void removerProduto() {
 
         // this will cause :

@@ -83,3 +83,25 @@ entityManager.getTransaction().commit();
 This error occurs because of JPA does not know the instance of object with id 3.
 
 We need to recover it first from database using a find method in order to remove it.
+
+### Update objects
+
+> entityManager.merge(entity);
+
+With merge() we must inform all attributes of the entity, the attributes not informed will receive null value :
+
+```java
+    Produto produto = new Produto();
+    produto.setId(1);
+    produto.setNome("Novo Kindle Paperwhite");
+    //produto.setDescricao("Conheça o novo Kindle, agora com bla, bla bla");
+    //produto.setPreco(BigDecimal.valueOf(499.90d));
+
+    entityManager.getTransaction().begin();
+    entityManager.merge(produto);
+    entityManager.getTransaction().commit();
+```
+
+Result :
+
+![img.png](docs/img.png)

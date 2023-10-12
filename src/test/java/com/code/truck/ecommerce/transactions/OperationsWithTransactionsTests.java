@@ -10,13 +10,29 @@ import java.math.BigDecimal;
 public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
     @Test
-    public void updateProduto() {
+    public void updateEntityManegedByEntityManager() {
+        Produto produto = entityManager.find(Produto.class, 4);
+
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Blu ray player");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 4);
+        Assertions.assertEquals("Blu ray player", productToAssertAfterClearCache.getNome());
+    }
+
+    @Test
+    public void updateEntityNotManagedByEntityManager() {
 
         Produto produto = new Produto();
         produto.setId(1);
         produto.setNome("Novo Kindle Paperwhite");
-        //produto.setDescricao("Conheça o novo Kindle, agora com bla, bla bla");
-        //produto.setPreco(BigDecimal.valueOf(499.90d));
+        // This will cause Description and Price to be null
+        //produto.setDescription("Conheça o novo Kindle, agora com bla, bla bla");
+        //produto.setPrice(BigDecimal.valueOf(499.90d));
 
         entityManager.getTransaction().begin();
         entityManager.merge(produto);
@@ -27,10 +43,10 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 1);
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
-        Assertions.assertEquals("Novo Kindle Paperwhite", produto.getNome());
+        Assertions.assertEquals("Novo Kindle Paperwhite", productToAssertAfterClearCache.getNome());
     }
     @Test
-    public void removerProduto() {
+    public void removeEntity() {
 
         // this will cause :
         // java.lang.IllegalArgumentException: Removing a detached instance com.code.truck.ecommerce.model.Produto#3
@@ -50,7 +66,28 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
     }
 
     @Test
-    public void insertProduct() {
+    public void insertEntityWithMerge() {
+
+        Produto produto = new Produto();
+        produto.setId(5);
+        produto.setNome("Microphone Rode Videmic");
+        produto.setDescricao("Best quality of sound.");
+        produto.setPreco(new BigDecimal(5000));
+
+        entityManager.getTransaction().begin();
+
+        entityManager.merge(produto);
+
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 5);
+
+        Assertions.assertNotNull(productToAssertAfterClearCache);
+    }
+    @Test
+    public void insertEntity() {
 
         Produto produto = new Produto();
         produto.setId(2);

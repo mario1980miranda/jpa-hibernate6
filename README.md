@@ -88,6 +88,8 @@ We need to recover it first from database using a find method in order to remove
 
 > entityManager.merge(entity);
 
+#### Merge not managed by EntityManager
+
 With merge() we must inform all attributes of the entity, the attributes not informed will receive null value :
 
 ```java
@@ -105,3 +107,12 @@ With merge() we must inform all attributes of the entity, the attributes not inf
 Result :
 
 ![img.png](docs/img.png)
+
+#### Merge with the knowledge of the EntityManager
+
+```java
+
+```
+
+### Merge VS Persist
+

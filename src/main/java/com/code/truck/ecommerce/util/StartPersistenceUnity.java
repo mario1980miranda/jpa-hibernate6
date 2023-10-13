@@ -1,6 +1,5 @@
 package com.code.truck.ecommerce.util;
 
-import com.code.truck.ecommerce.model.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

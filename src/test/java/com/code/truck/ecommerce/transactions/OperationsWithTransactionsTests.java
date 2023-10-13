@@ -1,7 +1,7 @@
 package com.code.truck.ecommerce.transactions;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
-import com.code.truck.ecommerce.model.Produto;
+import com.code.truck.ecommerce.model.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,54 +11,54 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
     @Test
     public void detachEntityFromEntityManager() {
-        Produto produto = entityManager.find(Produto.class, 4);
+        Product product = entityManager.find(Product.class, 9);
 
-        entityManager.detach(produto);
+        entityManager.detach(product);
 
         entityManager.getTransaction().begin();
-        produto.setNome("Blu ray player");
+        product.setName("New IPad");
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 4);
-        Assertions.assertEquals("DVD Player", productToAssertAfterClearCache.getNome());
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, 9);
+        Assertions.assertEquals("IPad", productToAssertAfterClearCache.getName());
     }
 
     @Test
     public void updateEntityManegedByEntityManager() {
-        Produto produto = entityManager.find(Produto.class, 4);
+        Product product = entityManager.find(Product.class, 4);
 
         entityManager.getTransaction().begin();
-        produto.setNome("Blu ray player");
+        product.setName("Blu ray player");
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 4);
-        Assertions.assertEquals("Blu ray player", productToAssertAfterClearCache.getNome());
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, 4);
+        Assertions.assertEquals("Blu ray player", productToAssertAfterClearCache.getName());
     }
 
     @Test
     public void updateEntityNotManagedByEntityManager() {
 
-        Produto produto = new Produto();
-        produto.setId(1);
-        produto.setNome("Novo Kindle Paperwhite");
+        Product product = new Product();
+        product.setId(1);
+        product.setName("Novo Kindle Paperwhite");
         // This will cause Description and Price to be null
         //produto.setDescription("Conheça o novo Kindle, agora com bla, bla bla");
         //produto.setPrice(BigDecimal.valueOf(499.90d));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(produto);
+        entityManager.merge(product);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 1);
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, 1);
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
-        Assertions.assertEquals("Novo Kindle Paperwhite", productToAssertAfterClearCache.getNome());
+        Assertions.assertEquals("Novo Kindle Paperwhite", productToAssertAfterClearCache.getName());
     }
     @Test
     public void removeEntity() {
@@ -68,36 +68,36 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         //Produto produto = new Produto();
         //produto.setId(3);
         // EntityManager must know the object in order to interact with it
-        Produto produto = entityManager.find(Produto.class, 3);
+        Product product = entityManager.find(Product.class, 3);
 
         entityManager.getTransaction().begin();
 
-        entityManager.remove(produto);
+        entityManager.remove(product);
 
         entityManager.getTransaction().commit();
 
-        Produto produtoVerifier = entityManager.find(Produto.class, 3);
-        Assertions.assertNull(produtoVerifier);
+        Product productVerifier = entityManager.find(Product.class, 3);
+        Assertions.assertNull(productVerifier);
     }
 
     @Test
     public void insertEntityWithMerge() {
 
-        Produto produto = new Produto();
-        produto.setId(5);
-        produto.setNome("Microphone Rode Videmic");
-        produto.setDescricao("Best quality of sound.");
-        produto.setPreco(new BigDecimal(5000));
+        Product product = new Product();
+        product.setId(5);
+        product.setName("Microphone Rode Videmic");
+        product.setDescription("Best quality of sound.");
+        product.setPrice(new BigDecimal(5000));
 
         entityManager.getTransaction().begin();
 
-        entityManager.merge(produto);
+        entityManager.merge(product);
 
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 5);
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, 5);
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
     }
@@ -106,32 +106,32 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
     public void showDifferenceBetweenPersistenceAndMerge() {
 
         System.out.println(">>> PERSIST <<<");
-        Produto productPersist = new Produto();
+        Product productPersist = new Product();
         productPersist.setId(6);
-        productPersist.setNome("XBox");
-        productPersist.setDescricao("Microsoft's console");
-        productPersist.setPreco(new BigDecimal(599));
+        productPersist.setName("XBox");
+        productPersist.setDescription("Microsoft's console");
+        productPersist.setPrice(new BigDecimal(599));
 
         entityManager.getTransaction().begin();
         System.out.println(">>> Persist : After commit INSERT command will execute");
         entityManager.persist(productPersist);
         System.out.println(">>> Persist : Now the entity persisted is managed by JPA");
         System.out.println(">>> Persist : This will result in a UPDATE command by a simple SET");
-        productPersist.setNome("XBox series X");
+        productPersist.setName("XBox series X");
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Produto productPersistToAssert = entityManager.find(Produto.class, 6);
+        Product productPersistToAssert = entityManager.find(Product.class, 6);
         Assertions.assertNotNull(productPersistToAssert);
-        Assertions.assertEquals("XBox series X", productPersistToAssert.getNome());
+        Assertions.assertEquals("XBox series X", productPersistToAssert.getName());
 
         System.out.println(">>> MERGE [just copy] <<<");
 
-        Produto productMergeJustCopy = new Produto();
+        Product productMergeJustCopy = new Product();
         productMergeJustCopy.setId(7);
-        productMergeJustCopy.setNome("PlayStation 4");
-        productMergeJustCopy.setDescricao("Sony's console");
-        productMergeJustCopy.setPreco(new BigDecimal(399));
+        productMergeJustCopy.setName("PlayStation 4");
+        productMergeJustCopy.setDescription("Sony's console");
+        productMergeJustCopy.setPrice(new BigDecimal(399));
 
         entityManager.getTransaction().begin();
         System.out.println(">>> MERGE : INSERT command will execute");
@@ -139,21 +139,21 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         entityManager.merge(productMergeJustCopy);
         System.out.println(">>> MERGE : productMergeJustCopy.setNome(\"PlayStation 4 PRO\") " +
                 "will not take effect in the database");
-        productMergeJustCopy.setNome("PlayStation 4 PRO");
+        productMergeJustCopy.setName("PlayStation 4 PRO");
         entityManager.getTransaction().commit();
         entityManager.clear();
 
         System.out.println(">>> MERGE [Reassigned local variable] <<<");
 
-        Produto productMergeJustCopyToAssert = entityManager.find(Produto.class, 7);
+        Product productMergeJustCopyToAssert = entityManager.find(Product.class, 7);
         Assertions.assertNotNull(productMergeJustCopyToAssert);
-        Assertions.assertEquals("PlayStation 4", productMergeJustCopyToAssert.getNome());
+        Assertions.assertEquals("PlayStation 4", productMergeJustCopyToAssert.getName());
 
-        Produto productMerge = new Produto();
+        Product productMerge = new Product();
         productMerge.setId(8);
-        productMerge.setNome("PSX");
-        productMerge.setDescricao("Sony's console");
-        productMerge.setPreco(new BigDecimal(599));
+        productMerge.setName("PSX");
+        productMerge.setDescription("Sony's console");
+        productMerge.setPrice(new BigDecimal(599));
 
         entityManager.getTransaction().begin();
         System.out.println(">>> MERGE : INSERT command will execute");
@@ -163,33 +163,33 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         productMerge = entityManager.merge(productMerge);
         System.out.println(">>> MERGE : Now the entity persisted is managed by JPA");
         System.out.println(">>> MERGE : This will result in a UPDATE command by a simple SET");
-        productMerge.setNome("PlayStation 5");
+        productMerge.setName("PlayStation 5");
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Produto productMergeToAssert = entityManager.find(Produto.class, 8);
+        Product productMergeToAssert = entityManager.find(Product.class, 8);
         Assertions.assertNotNull(productMergeToAssert);
-        Assertions.assertEquals("PlayStation 5", productMergeToAssert.getNome());
+        Assertions.assertEquals("PlayStation 5", productMergeToAssert.getName());
     }
 
     @Test
     public void insertEntity() {
 
-        Produto produto = new Produto();
-        produto.setId(2);
-        produto.setNome("Camera Canon");
-        produto.setDescricao("A melhor camera do mercado");
-        produto.setPreco(new BigDecimal(5000));
+        Product product = new Product();
+        product.setId(2);
+        product.setName("Camera Canon");
+        product.setDescription("A melhor camera do mercado");
+        product.setPrice(new BigDecimal(5000));
 
         entityManager.getTransaction().begin();
 
-        entityManager.persist(produto);
+        entityManager.persist(product);
 
         entityManager.getTransaction().commit();
 
         System.out.println(">>>> Here we don`t see a SELECT because of the entity manager is using a cache in memory");
-        Produto productToAssert = entityManager.find(Produto.class, 2);
+        Product productToAssert = entityManager.find(Product.class, 2);
 
         Assertions.assertNotNull(productToAssert);
 
@@ -198,7 +198,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         entityManager.clear();
 
-        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 2);
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, 2);
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
     }

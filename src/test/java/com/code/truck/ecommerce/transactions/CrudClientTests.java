@@ -13,7 +13,7 @@ public class CrudClientTests extends EntityManagerBaseTests {
 
         final String NAME = "Ozzy Osbourne";
         Client client = new Client();
-        client.setId(3);
+        client.setId(4);
         client.setName(NAME);
 
         entityManager.getTransaction().begin();
@@ -21,7 +21,7 @@ public class CrudClientTests extends EntityManagerBaseTests {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        var clientToAssert = entityManager.find(Client.class, 3);
+        var clientToAssert = entityManager.find(Client.class, 4);
         Assertions.assertEquals(NAME, clientToAssert.getName());
 
     }
@@ -30,9 +30,9 @@ public class CrudClientTests extends EntityManagerBaseTests {
     @Test
     public void readClient() {
 
-        Client client = entityManager.find(Client.class, 1);
+        Client client = entityManager.find(Client.class, 3);
 
-        Assertions.assertEquals("Mario Miranda", client.getName());
+        Assertions.assertEquals("Gatusca & Nino", client.getName());
     }
 
     // UPDATE
@@ -43,11 +43,11 @@ public class CrudClientTests extends EntityManagerBaseTests {
         Client client = entityManager.getReference(Client.class, 2);
 
         entityManager.getTransaction().begin();
-        client.setName("Christina Chan");
+        client.setName("Cristina Chan");
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Assertions.assertEquals("Christina Chan", client.getName());
+        Assertions.assertEquals("Cristina Chan", client.getName());
     }
 
     // DELETE

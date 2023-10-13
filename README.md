@@ -41,17 +41,17 @@ docker ps -a
 entityManager.getTransaction().begin();
     
 // database modification commands
-entityManager.persist(produto);
-entityManager.merge(produto);
-entityManager.remove(produto);
+entityManager.persist(product);
+entityManager.merge(product);
+entityManager.remove(product);
 
 // return un object to a previous state
 // exemple: 
-Produto produto = entityManager.find(Produto.class, 1);
-// now produto.getNome() value is "TV"
+Produto product = entityManager.find(Produto.class, 1);
+// now product.getNome() value is "TV"
 // we gonna change the name attribute
-produto.setNome("Microphone");
-entityManager.refresh(produto); // reset entity in the database
+product.setNome("Microphone");
+entityManager.refresh(product); // reset entity in the database
 // after refresh name will return to the value "TV"
         
 // this will transfer all objects in memory to a database
@@ -70,12 +70,12 @@ entityManager.clear();
 > ERROR: java.lang.IllegalArgumentException: Removing a detached instance ...
 
 ```java
-Produto produto = new Produto();
-produto.setId(3);
+Produto product = new Produto();
+product.setId(3);
 
 entityManager.getTransaction().begin();
 
-entityManager.remove(produto);
+entityManager.remove(product);
 
 entityManager.getTransaction().commit();
 ```
@@ -93,14 +93,14 @@ We need to recover it first from database using a find method in order to remove
 With merge() we must inform all attributes of the entity, the attributes not informed will receive null value :
 
 ```java
-    Produto produto = new Produto();
-    produto.setId(1);
-    produto.setNome("Novo Kindle Paperwhite");
-    //produto.setDescricao("Conheça o novo Kindle, agora com bla, bla bla");
-    //produto.setPreco(BigDecimal.valueOf(499.90d));
+    Produto product = new Produto();
+    product.setId(1);
+    product.setNome("Novo Kindle Paperwhite");
+    //product.setDescricao("Conheça o novo Kindle, agora com bla, bla bla");
+    //product.setPreco(BigDecimal.valueOf(499.90d));
 
     entityManager.getTransaction().begin();
-    entityManager.merge(produto);
+    entityManager.merge(product);
     entityManager.getTransaction().commit();
 ```
 

@@ -86,6 +86,78 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
     }
+
+    @Test
+    public void showDifferenceBetweenPersistenceAndMerge() {
+
+        System.out.println(">>> PERSIST <<<");
+        Produto productPersist = new Produto();
+        productPersist.setId(6);
+        productPersist.setNome("XBox");
+        productPersist.setDescricao("Microsoft's console");
+        productPersist.setPreco(new BigDecimal(599));
+
+        entityManager.getTransaction().begin();
+        System.out.println(">>> Persist : After commit INSERT command will execute");
+        entityManager.persist(productPersist);
+        System.out.println(">>> Persist : Now the entity persisted is managed by JPA");
+        System.out.println(">>> Persist : This will result in a UPDATE command by a simple SET");
+        productPersist.setNome("XBox series X");
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Produto productPersistToAssert = entityManager.find(Produto.class, 6);
+        Assertions.assertNotNull(productPersistToAssert);
+        Assertions.assertEquals("XBox series X", productPersistToAssert.getNome());
+
+        System.out.println(">>> MERGE [just copy] <<<");
+
+        Produto productMergeJustCopy = new Produto();
+        productMergeJustCopy.setId(7);
+        productMergeJustCopy.setNome("PlayStation 4");
+        productMergeJustCopy.setDescricao("Sony's console");
+        productMergeJustCopy.setPreco(new BigDecimal(399));
+
+        entityManager.getTransaction().begin();
+        System.out.println(">>> MERGE : INSERT command will execute");
+        System.out.println(">>> MERGE : Just make a copy of the entity and transfers it to EM of JPA");
+        entityManager.merge(productMergeJustCopy);
+        System.out.println(">>> MERGE : productMergeJustCopy.setNome(\"PlayStation 4 PRO\") " +
+                "will not take effect in the database");
+        productMergeJustCopy.setNome("PlayStation 4 PRO");
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        System.out.println(">>> MERGE [Reassigned local variable] <<<");
+
+        Produto productMergeJustCopyToAssert = entityManager.find(Produto.class, 7);
+        Assertions.assertNotNull(productMergeJustCopyToAssert);
+        Assertions.assertEquals("PlayStation 4", productMergeJustCopyToAssert.getNome());
+
+        Produto productMerge = new Produto();
+        productMerge.setId(8);
+        productMerge.setNome("PSX");
+        productMerge.setDescricao("Sony's console");
+        productMerge.setPreco(new BigDecimal(599));
+
+        entityManager.getTransaction().begin();
+        System.out.println(">>> MERGE : INSERT command will execute");
+        System.out.println(">>> MERGE : We need to set the value of productMerge with the return of " + "\n" +
+                "entityManager.merge(productMerge) operation" + "\n" +
+                "if not, the entity is not managed, just a copy of it");
+        productMerge = entityManager.merge(productMerge);
+        System.out.println(">>> MERGE : Now the entity persisted is managed by JPA");
+        System.out.println(">>> MERGE : This will result in a UPDATE command by a simple SET");
+        productMerge.setNome("PlayStation 5");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto productMergeToAssert = entityManager.find(Produto.class, 8);
+        Assertions.assertNotNull(productMergeToAssert);
+        Assertions.assertEquals("PlayStation 5", productMergeToAssert.getNome());
+    }
+
     @Test
     public void insertEntity() {
 

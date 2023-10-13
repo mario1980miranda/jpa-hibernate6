@@ -116,3 +116,48 @@ Result :
 
 ### Merge VS Persist
 
+> Persist
+
+Persist is used just for INSERT operations. Guarantee for the creation of new records.
+
+It gets the entity to save and transfer to the memory of the EntityManager.
+
+```java
+entityManager.getTransaction().begin();
+
+entityManager.persist(productPersist); // now productPersist is managed by the EntityManager of JPA
+                                       // and it is in entityManager's memory
+productPersist.setNome("New name"); // this will take effet in the database
+                                    // we will see a UPDATE command and the name will be changed
+entityManager.getTransaction().commit();
+```
+
+> Merge
+
+Merge is capable of INSERT and UPDATE operations.
+
+It makes a ***copy*** of the entity to save and transfer to the memory of the EntityManager.
+
+```java
+entityManager.getTransaction().begin();
+
+entityManager.merge(productMerge); // now productMerge is copied to the EntityManager of JPA
+
+productMerge.setNome("New name"); // this will not effet the record, because it's not managed 
+                                    // by the EntityManager
+                                    // no UPDATE command in this case
+entityManager.getTransaction().commit();
+```
+
+In order to UPDATE the state of the entity, we need to explicitly refers to the object 
+by setting the result of the merge into the same variable:
+
+```java
+entityManager.getTransaction().begin();
+
+productMerge = entityManager.merge(productMerge); // now we made productMerge managed by JPA
+
+productMerge.setNome("New name"); // and this will take effect into the database
+
+entityManager.getTransaction().commit();
+```

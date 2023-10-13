@@ -162,3 +162,41 @@ productMerge.setNome("New name"); // and this will take effect into the database
 entityManager.getTransaction().commit();
 ```
 ### Detach
+
+## Lombok
+
+> Dependency
+
+```xml
+...
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.30</version>
+    <scope>provided</scope>
+</dependency>
+...
+```
+
+> Annotation processor
+
+```xml
+...
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.11.0</version>
+<configuration>
+    <source>${maven.compiler.source}</source>
+    <target>${maven.compiler.target}</target>
+    <annotationProcessorPaths>
+        <path>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+        </path>
+    </annotationProcessorPaths>
+</configuration>
+</plugin>
+...
+```

@@ -10,9 +10,24 @@ import java.math.BigDecimal;
 public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
     @Test
-    public void updateEntityManegedByEntityManager() {
+    public void detachEntityFromEntityManager() {
         Produto produto = entityManager.find(Produto.class, 4);
 
+        entityManager.detach(produto);
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Blu ray player");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto productToAssertAfterClearCache = entityManager.find(Produto.class, 4);
+        Assertions.assertEquals("DVD Player", productToAssertAfterClearCache.getNome());
+    }
+
+    @Test
+    public void updateEntityManegedByEntityManager() {
+        Produto produto = entityManager.find(Produto.class, 4);
 
         entityManager.getTransaction().begin();
         produto.setNome("Blu ray player");

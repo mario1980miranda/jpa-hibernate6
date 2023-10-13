@@ -161,3 +161,4 @@ productMerge.setNome("New name"); // and this will take effect into the database
 
 entityManager.getTransaction().commit();
 ```
+### Detach

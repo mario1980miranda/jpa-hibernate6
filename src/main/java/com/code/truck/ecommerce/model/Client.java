@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "client")
+@Table(name = "tb_client")
 public class Client {
 
     @EqualsAndHashCode.Include

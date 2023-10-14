@@ -1,9 +1,6 @@
 package com.code.truck.ecommerce.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,5 +24,6 @@ public class Order {
     @Column(name = "invoice_id")
     private Integer invoiceId;
     private BigDecimal total;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 }

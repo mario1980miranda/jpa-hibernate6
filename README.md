@@ -200,3 +200,17 @@ entityManager.getTransaction().commit();
 </plugin>
 ...
 ```
+
+## JPA annotations
+
+```java
+@Enumerated(EnumType.STRING)
+```
+
+```java
+@Embeddable
+```
+
+```java
+@Embedded
+```

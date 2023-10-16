@@ -13,7 +13,7 @@ public class CrudClientTests extends EntityManagerBaseTests {
 
         final String NAME = "Ozzy Osbourne";
         Client client = new Client();
-        client.setId(4);
+        //client.setId(4); commented because of the primary key auto increment strategy
         client.setName(NAME);
 
         entityManager.getTransaction().begin();

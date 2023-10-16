@@ -35,4 +35,34 @@ public class AutoStrategyTests extends EntityManagerBaseTests {
         Category categoryToAssert = entityManager.find(Category.class, category.getId());
         Assertions.assertNotNull(categoryToAssert);
     }
+
+    @Test
+    public void testTableStrategy() {
+
+        Category category = new Category();
+        category.setName("Category with TABLE strategy generated value.");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(category);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Category categoryToAssert = entityManager.find(Category.class, category.getId());
+        Assertions.assertNotNull(categoryToAssert);
+    }
+
+    @Test
+    public void testIdentityStrategy() {
+
+        Category category = new Category();
+        category.setName("Category with IDENTITY strategy generated value.");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(category);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Category categoryToAssert = entityManager.find(Category.class, category.getId());
+        Assertions.assertNotNull(categoryToAssert);
+    }
 }

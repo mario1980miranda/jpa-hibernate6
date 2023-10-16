@@ -49,4 +49,82 @@ AUTO Strategy in this case.
 
 ![SEQUENCE_Strategy.png](docs/new-table_SEQUENCE_strategy.png)
 
-### 
+### GenerationType.TABLE
+
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_strategy")
+@TableGenerator(name = "table_strategy",
+        table = "my_table_sequences",
+        pkColumnName = "sequence_name",
+        pkColumnValue = "category_sequence",
+        valueColumnName = "next_value",
+        initialValue = 0,
+        allocationSize = 10) // default is 50
+```
+
+All sequence generators will be stored in a single table with auto generated attributes. It is possible to customise
+these attributes as the example below.
+
+```roomsql
+-- Hibernate: 
+    select
+        tbl.next_value 
+    from
+        my_table_sequences tbl 
+    where
+        tbl.sequence_name=? for update
+-- Hibernate: 
+    update
+        my_table_sequences 
+    set
+        next_value=?  
+    where
+        next_value=? 
+        and sequence_name=?
+```
+
+![img.png](docs/new-table_TABLE_strategy.png)
+
+### GenerationType.IDENTITY
+
+> This strategy will be used in this project.
+
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+```
+
+This strategy uses the AUTO_INCREMENT statement from MYSQL. For other databases this characteristic will be emulated.
+
+```roomsql
+-- Hibernate: 
+    create table tb_category (
+        id integer not null auto_increment,
+        parent_category_id integer,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+```
+
+For study purposes, all tests must be refactored because of set id used this error will be raised :
+
+```shell
+jakarta.persistence.EntityExistsException: detached entity passed to persist: com.code.truck.ecommerce.model.Client
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:126)
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:167)
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:173)
+    at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:772)
+    at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:750)
+    at com.code.truck.ecommerce.transactions.CrudClientTests.createClient(CrudClientTests.java:20)
+    at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+    at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+    at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: com.code.truck.ecommerce.model.Client
+    at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:88)
+    at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:77)
+    at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:54)
+    at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+    at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:766)
+    ... 5 more
+```

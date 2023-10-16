@@ -20,7 +20,7 @@ public class CrudOrderTests extends EntityManagerBaseTests {
         address.setPostalCode("G1V 0E7");
 
         Order order = new Order();
-        order.setId(1);
+        //order.setId(1); commented because of the primary key auto increment strategy
         order.setCreateDate(LocalDateTime.now());
         order.setTotal(new BigDecimal(5000));
         order.setStatus(OrderStatus.WAITING);

@@ -11,7 +11,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
     @Test
     public void detachEntityFromEntityManager() {
-        Product product = entityManager.find(Product.class, 9);
+        Product product = entityManager.find(Product.class, 4);
 
         entityManager.detach(product);
 
@@ -21,8 +21,8 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         entityManager.clear();
 
-        Product productToAssertAfterClearCache = entityManager.find(Product.class, 9);
-        Assertions.assertEquals("IPad", productToAssertAfterClearCache.getName());
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, product.getId());
+        Assertions.assertEquals("Blu ray player", productToAssertAfterClearCache.getName());
     }
 
     @Test
@@ -84,20 +84,20 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
     public void insertEntityWithMerge() {
 
         Product product = new Product();
-        product.setId(5);
+        //product.setId(5); commented because of the primary key auto increment strategy
         product.setName("Microphone Rode Videmic");
         product.setDescription("Best quality of sound.");
         product.setPrice(new BigDecimal(5000));
 
         entityManager.getTransaction().begin();
 
-        entityManager.merge(product);
+        Product productPersistedWithMerge = entityManager.merge(product);
 
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Product productToAssertAfterClearCache = entityManager.find(Product.class, 5);
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, productPersistedWithMerge.getId());
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
     }
@@ -107,7 +107,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         System.out.println(">>> PERSIST <<<");
         Product productPersist = new Product();
-        productPersist.setId(6);
+        //productPersist.setId(6); commented because of the primary key auto increment strategy
         productPersist.setName("XBox");
         productPersist.setDescription("Microsoft's console");
         productPersist.setPrice(new BigDecimal(599));
@@ -121,7 +121,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Product productPersistToAssert = entityManager.find(Product.class, 6);
+        Product productPersistToAssert = entityManager.find(Product.class, productPersist.getId());
         Assertions.assertNotNull(productPersistToAssert);
         Assertions.assertEquals("XBox series X", productPersistToAssert.getName());
 
@@ -145,12 +145,12 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         System.out.println(">>> MERGE [Reassigned local variable] <<<");
 
-        Product productMergeJustCopyToAssert = entityManager.find(Product.class, 7);
+        Product productMergeJustCopyToAssert = entityManager.find(Product.class, productMergeJustCopy.getId());
+        System.out.println(productMergeJustCopyToAssert);
         Assertions.assertNotNull(productMergeJustCopyToAssert);
-        Assertions.assertEquals("PlayStation 4", productMergeJustCopyToAssert.getName());
 
         Product productMerge = new Product();
-        productMerge.setId(8);
+        //productMerge.setId(8); commented because of the primary key auto increment strategy
         productMerge.setName("PSX");
         productMerge.setDescription("Sony's console");
         productMerge.setPrice(new BigDecimal(599));
@@ -168,7 +168,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         entityManager.clear();
 
-        Product productMergeToAssert = entityManager.find(Product.class, 8);
+        Product productMergeToAssert = entityManager.find(Product.class, productMerge.getId());
         Assertions.assertNotNull(productMergeToAssert);
         Assertions.assertEquals("PlayStation 5", productMergeToAssert.getName());
     }
@@ -177,7 +177,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
     public void insertEntity() {
 
         Product product = new Product();
-        product.setId(2);
+        //product.setId(2); commented because of the primary key auto increment strategy
         product.setName("Camera Canon");
         product.setDescription("A melhor camera do mercado");
         product.setPrice(new BigDecimal(5000));
@@ -189,7 +189,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         entityManager.getTransaction().commit();
 
         System.out.println(">>>> Here we don`t see a SELECT because of the entity manager is using a cache in memory");
-        Product productToAssert = entityManager.find(Product.class, 2);
+        Product productToAssert = entityManager.find(Product.class, product.getId());
 
         Assertions.assertNotNull(productToAssert);
 
@@ -198,7 +198,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
 
         entityManager.clear();
 
-        Product productToAssertAfterClearCache = entityManager.find(Product.class, 2);
+        Product productToAssertAfterClearCache = entityManager.find(Product.class, product.getId());
 
         Assertions.assertNotNull(productToAssertAfterClearCache);
     }

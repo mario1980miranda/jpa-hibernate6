@@ -12,7 +12,7 @@ public class MappingEnumsTests extends EntityManagerBaseTests {
     public void testEnums() {
 
         Client client = new Client();
-        client.setId(5);
+        //client.setId(5); commented because of the primary key auto increment strategy
         client.setName("James Hatfield");
         client.setGender(GenderClient.MALE);
 
@@ -21,7 +21,7 @@ public class MappingEnumsTests extends EntityManagerBaseTests {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Client clientToAssert = entityManager.find(Client.class, 5);
+        Client clientToAssert = entityManager.find(Client.class, client.getId());
         Assertions.assertNotNull(clientToAssert);
     }
 }

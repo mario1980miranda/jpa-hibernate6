@@ -13,7 +13,9 @@ import lombok.Setter;
 public class Category {
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
+    @SequenceGenerator(name = "my_seq", sequenceName = "my_tb_category_seq")
     private Integer id;
     private String name;
     @Column(name = "parent_category_id")

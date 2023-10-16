@@ -17,6 +17,7 @@
 ### GenerationType.AUTO
 
 ```java
+@Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 ```
 
@@ -33,4 +34,19 @@ Hibernate:
     insert into tb_category_SEQ values ( 1 )
 ```
 
-![new-table-tb_category_SEQ.png](docs/new-table_category_SEQ.png "new-table-tb_category_SEQ")
+![AUTO-Strategy.png](docs/new-table_AUTO_strategy.png "new-table-tb_category_SEQ")
+
+### GenerationType.SEQUENCE
+
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
+@SequenceGenerator(name = "my_seq", sequenceName = "my_tb_category_seq")
+```
+
+MySQL does not support SEQUENCE, but hibernate emulates a sequence when using MySQL by creating a TABLE, similar to the 
+AUTO Strategy in this case.
+
+![SEQUENCE_Strategy.png](docs/new-table_SEQUENCE_strategy.png)
+
+### 

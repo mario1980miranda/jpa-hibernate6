@@ -61,6 +61,35 @@ public class Client {
 }
 ```
 
+#### Auto relationship
+
+```java
+import jakarta.persistence.*;
+
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id") // JPA owning
+    private Category parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory") // JPA non-owning
+    private List<Category> categories;
+}
+```
+
+```mermaid
+erDiagram
+    TB_CATEGORY }o--o| TB_CATEGORY : has
+    TB_CATEGORY {
+        integer id PK
+        varchar name
+        integer parent_category_id FK
+    }
+```
+
 ### One to one
 
 ```mermaid

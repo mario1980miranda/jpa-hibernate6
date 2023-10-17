@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem {
@@ -17,10 +19,12 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "order_id")
-    private Integer orderId;
-    @Column(name = "product_id")
-    private Integer productId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
     @Column(name = "product_price")
     private BigDecimal productPrice;
     private Integer quantity;

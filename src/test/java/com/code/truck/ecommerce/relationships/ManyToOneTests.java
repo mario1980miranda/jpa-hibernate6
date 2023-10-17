@@ -1,13 +1,11 @@
 package com.code.truck.ecommerce.relationships;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
-import com.code.truck.ecommerce.model.AddressDeliver;
-import com.code.truck.ecommerce.model.Client;
-import com.code.truck.ecommerce.model.Order;
-import com.code.truck.ecommerce.model.OrderStatus;
+import com.code.truck.ecommerce.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ManyToOneTests extends EntityManagerBaseTests {
@@ -36,5 +34,33 @@ public class ManyToOneTests extends EntityManagerBaseTests {
         Order orderToAssert = entityManager.find(Order.class, order.getId());
         System.out.println(orderToAssert);
         Assertions.assertNotNull(orderToAssert.getClient());
+    }
+
+    @Test
+    public void verifyOrderItemToOrderAndOrderItemToProduct() {
+        Product product = entityManager.find(Product.class, 1);
+        Client client = entityManager.find(Client.class, 1);
+
+        Order order = new Order();
+        order.setTotal(BigDecimal.TEN);
+        order.setStatus(OrderStatus.WAITING);
+        order.setCreateDate(LocalDateTime.now());
+        order.setClient(client);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(order);
+        orderItem.setProduct(product);
+        orderItem.setQuantity(1);
+        orderItem.setProductPrice(product.getPrice());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(order);
+        entityManager.persist(orderItem);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        OrderItem orderItemToAssert = entityManager.find(OrderItem.class, orderItem.getId());
+        System.out.println(orderItemToAssert);
+
     }
 }

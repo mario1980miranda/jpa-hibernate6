@@ -6,10 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 @Entity
 @Table(name = "tb_client")
 public class Client {
@@ -20,4 +21,7 @@ public class Client {
     private String name;
     @Enumerated(EnumType.STRING)
     private GenderClient gender;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders;
 }

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 @Entity
 @Table(name = "tb_order")
 public class Order {

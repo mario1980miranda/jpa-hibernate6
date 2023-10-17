@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,9 +19,6 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
     @Column(name = "create_date")
     private LocalDateTime createDate;
     @Column(name = "conclusion_date")
@@ -31,6 +28,13 @@ public class Order {
     private BigDecimal total;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
     @Embedded
     private AddressDeliver address;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 }

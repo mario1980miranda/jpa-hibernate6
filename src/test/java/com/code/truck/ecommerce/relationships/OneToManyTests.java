@@ -34,4 +34,31 @@ public class OneToManyTests extends EntityManagerBaseTests {
         Client clientToAssert = entityManager.find(Client.class, client.getId());
         Assertions.assertFalse(clientToAssert.getOrders().isEmpty());
     }
+
+    @Test
+    public void verifyOrderToOrderItemAndProductToOrderItem() {
+        Product product = entityManager.find(Product.class, 1);
+        Client client = entityManager.find(Client.class, 1);
+
+        Order order = new Order();
+        order.setTotal(BigDecimal.TEN);
+        order.setStatus(OrderStatus.WAITING);
+        order.setCreateDate(LocalDateTime.now());
+        order.setClient(client);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(order);
+        orderItem.setProduct(product);
+        orderItem.setQuantity(1);
+        orderItem.setProductPrice(product.getPrice());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(order);
+        entityManager.persist(orderItem);
+        entityManager.getTransaction().commit();
+        entityManager.clear();
+
+        Order orderToAssert = entityManager.find(Order.class, order.getId());
+        Assertions.assertFalse(orderToAssert.getOrderItems().isEmpty());
+    }
 }

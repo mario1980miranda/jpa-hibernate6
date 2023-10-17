@@ -61,6 +61,7 @@ public class ManyToOneTests extends EntityManagerBaseTests {
 
         OrderItem orderItemToAssert = entityManager.find(OrderItem.class, orderItem.getId());
         System.out.println(orderItemToAssert);
-
+        Assertions.assertNotNull(orderItemToAssert.getOrder());
+        Assertions.assertNotNull(orderItemToAssert.getProduct());
     }
 }

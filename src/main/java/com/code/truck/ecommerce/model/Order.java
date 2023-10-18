@@ -30,7 +30,7 @@ public class Order {
     @Embedded
     private AddressDeliver address;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "client_id")
     private Client client;
 

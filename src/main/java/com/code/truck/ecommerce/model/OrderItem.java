@@ -22,10 +22,11 @@ public class OrderItem {
     private BigDecimal productPrice;
     private Integer quantity;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "order_id")
     private Order order;
-    @ManyToOne
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
 }

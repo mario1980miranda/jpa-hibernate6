@@ -21,7 +21,7 @@ public class Invoice {
     @Column(name = "issue_date")
     private Date issueDate;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinTable(name = "tb_invoice_order",
             joinColumns = @JoinColumn(name = "invoice_id", unique = true),
             inverseJoinColumns = @JoinColumn(name = "order_id", unique = true))

@@ -19,7 +19,7 @@ public class CardPayment {
     private PaymentStatus status;
     private String number;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "order_id")
     private Order order;
 }

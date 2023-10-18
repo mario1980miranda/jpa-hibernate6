@@ -2,6 +2,7 @@ package com.code.truck.ecommerce.transactions;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.AddressDeliver;
+import com.code.truck.ecommerce.model.Client;
 import com.code.truck.ecommerce.model.Order;
 import com.code.truck.ecommerce.model.OrderStatus;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 public class CrudOrderTests extends EntityManagerBaseTests {
     @Test
     public void createOrder() {
+
+        Client client = entityManager.find(Client.class, 2);
+
         AddressDeliver address = new AddressDeliver();
         address.setCity("Québec");
         address.setRue("201-770 Jacques-Berthiaume");
@@ -25,6 +29,7 @@ public class CrudOrderTests extends EntityManagerBaseTests {
         order.setTotal(new BigDecimal(5000));
         order.setStatus(OrderStatus.WAITING);
         order.setAddress(address);
+        order.setClient(client);
 
         entityManager.getTransaction().begin();
         entityManager.persist(order);

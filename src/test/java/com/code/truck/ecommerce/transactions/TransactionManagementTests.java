@@ -9,10 +9,34 @@ import org.junit.jupiter.api.Test;
 public class TransactionManagementTests extends EntityManagerBaseTests {
 
     @Test
+    public void exceptionWithFlush() {
+
+        Assertions.assertThrows(Exception.class, () -> {
+
+            try {
+                entityManager.getTransaction().begin();
+
+                Order order = entityManager.find(Order.class, 1);
+                order.setStatus(OrderStatus.PAID);
+
+                if (order.getCardPayment() == null) {
+                    throw new RuntimeException("Order not paid");
+                }
+
+
+                entityManager.getTransaction().commit();
+            } catch (Exception e) {
+
+                entityManager.getTransaction().rollback();
+                throw e;
+            }
+        });
+    }
+
+    @Test
     public void verifyRollback() {
 
         Assertions.assertThrows(Exception.class, () -> methodToTest());
-
     }
 
     private void methodToTest() {

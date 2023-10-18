@@ -3,6 +3,8 @@
 When we want to map strict values using java's Enum it's possible to save into the database it's String value. It's safer
 than just save it's ordinal value (0, 1, 2, ...) 
 
+![jpa entity state](docs/jpa_entity_state.png)
+
 ### Enum classes
 
 ```java

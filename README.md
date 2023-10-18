@@ -222,3 +222,7 @@ public void detachEntityFromEntityManager() {
 </plugin>
 ...
 ```
+01-JPA.md
+02-JPA-Relationship-Mappings.md
+
+To continue 

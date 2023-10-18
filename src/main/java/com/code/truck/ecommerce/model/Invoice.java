@@ -17,9 +17,11 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "order_id")
-    private Integer orderId;
     private String xml;
     @Column(name = "issue_date")
     private Date issueDate;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

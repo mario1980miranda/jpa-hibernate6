@@ -23,8 +23,6 @@ public class Order {
     private LocalDateTime createDate;
     @Column(name = "conclusion_date")
     private LocalDateTime conclusionDate;
-    @Column(name = "invoice_id")
-    private Integer invoiceId;
     private BigDecimal total;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -35,6 +33,13 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
+
+    @OneToOne(mappedBy = "order")
+    private CardPayment cardPayment;
+
+    @OneToOne(mappedBy = "order")
+    private Invoice invoice;
 }

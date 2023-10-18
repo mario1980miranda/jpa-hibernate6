@@ -30,9 +30,9 @@ public class CrudClientTests extends EntityManagerBaseTests {
     @Test
     public void readClient() {
 
-        Client client = entityManager.find(Client.class, 3);
+        Client client = entityManager.find(Client.class, 2);
 
-        Assertions.assertEquals("Gatusca & Nino", client.getName());
+        Assertions.assertEquals("Cristina Chan", client.getName());
     }
 
     // UPDATE
@@ -53,14 +53,14 @@ public class CrudClientTests extends EntityManagerBaseTests {
     // DELETE
     @Test
     public void deleteClient() {
-        Client client = entityManager.find(Client.class, 1);
+        Client client = entityManager.find(Client.class, 3);
 
         entityManager.getTransaction().begin();
         entityManager.remove(client);
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Client clientToAssert = entityManager.find(Client.class, 1);
+        Client clientToAssert = entityManager.find(Client.class, 3);
 
         Assertions.assertNull(clientToAssert);
     }

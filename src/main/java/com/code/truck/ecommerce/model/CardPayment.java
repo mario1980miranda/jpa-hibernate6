@@ -15,9 +15,11 @@ public class CardPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "order_id")
-    private Integer orderId;
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
     private String number;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

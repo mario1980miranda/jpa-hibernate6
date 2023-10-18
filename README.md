@@ -163,6 +163,28 @@ entityManager.getTransaction().commit();
 ```
 ### Detach
 
+In this case, we remove the product class from EntityManager supervision, which even after the commit does not change 
+its state within the database.
+
+```java
+@Test
+public void detachEntityFromEntityManager() {
+    Product product = entityManager.find(Product.class, 4);
+    // product name is : Blu ray player
+    entityManager.detach(product); // product will no longer be managed by JPAs EntityManager 
+
+    entityManager.getTransaction().begin();
+    product.setName("New IPad"); // this will not take effect
+    entityManager.getTransaction().commit();
+
+    entityManager.clear();
+
+    Product productToAssertAfterClearCache = entityManager.find(Product.class, product.getId());
+    Assertions.assertEquals("Blu ray player", productToAssertAfterClearCache.getName()); // test will pass 
+                                                                                        // nothing was changed
+}
+```
+
 ## Lombok
 
 > Dependency

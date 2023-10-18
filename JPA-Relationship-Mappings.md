@@ -98,7 +98,7 @@ title: One to one
 ---
 erDiagram
     TB_ORDER ||--|| TB_INVOICE : has
-    "TB_ORDER is the owner of the dones for JPA"
+    "TB_ORDER is the owner of the data for JPA"
     TB_ORDER {
         integer id PK
         datetime creation_date

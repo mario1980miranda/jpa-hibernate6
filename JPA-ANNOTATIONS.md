@@ -1,15 +1,90 @@
 ## JPA annotations
 
+When we want to map strict values using java's Enum it's possible to save into the database it's String value. It's safer
+than just save it's ordinal value (0, 1, 2, ...) 
+
+### Enum classes
+
 ```java
-@Enumerated(EnumType.STRING)
+public enum OrderStatus {
+    WAITING,
+    CANCELLED,
+    PAID
+}
 ```
 
 ```java
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "tb_order")
+public class Order {
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
+    
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+```
+
+The result will be like this :
+
+![enum_saved_as_string](docs/enum_saved_as_string.png)
+
+### Embeddable classes
+
+Save all data into one table, it would be like appending more attributes to a table.
+
+This way we maintain the principles of Object Orientation on the Java side without having to change the database 
+structure.
+
+> @Embeddable
+
+```java
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
 @Embeddable
+public class AddressDeliver {
+    @Column(name = "postal_code")
+    private String postalCode;
+    private String rue;
+    private String complement;
+    private String province;
+    private String city;
+}
 ```
+> @Embedded
 
 ```java
-@Embedded
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+
+@Entity
+@Table(name = "tb_order")
+public class Order {
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @Embedded
+    private AddressDeliver address;
 ```
 
 ## Primary Key @GeneratedValue strategies

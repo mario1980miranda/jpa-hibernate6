@@ -93,8 +93,12 @@ erDiagram
 ### One to one
 
 ```mermaid
+---
+title: One to one
+---
 erDiagram
     TB_ORDER ||--|| TB_INVOICE : has
+    "TB_ORDER is the owner of the dones for JPA"
     TB_ORDER {
         integer id PK
         datetime creation_date
@@ -143,6 +147,52 @@ public class Invoice {
     private String xml;
 
     @OneToOne(mappedBy = "invoice")
+    private Order order;
+}
+```
+#### One to one with JoinTable
+
+```mermaid
+erDiagram
+    TB_INVOICE_ORDER ||--|| TB_INVOICE : contains
+    TB_INVOICE_ORDER ||--|| TB_ORDER : contains
+    TB_INVOICE {
+        integer id PK
+        varchar xml
+    }
+    TB_ORDER {
+        integer id PK
+        timestamp create_date
+    }
+    TB_INVOICE_ORDER {
+        integer order_id FK "unique"
+        integer invoice_id FK "unique"
+    }
+```
+
+```java
+import jakarta.persistence.Id;
+
+public class Order {
+    @Id
+    private Integer id;
+
+    @OneToOne(mappedBy = "order")
+    private Invoice invoice;
+}
+```
+
+```java
+import jakarta.persistence.Id;
+
+public class Invoice {
+    @Id
+    private Integer id;
+
+    @OneToOne
+    @JoinTable(name = "tb_invoice_order",
+            joinColumns = @JoinColumn(name = "invoice_id", unique = true),
+            inverseJoinColumns = @JoinColumn(name = "order_id", unique = true))
     private Order order;
 }
 ```

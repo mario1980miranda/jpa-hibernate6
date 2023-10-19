@@ -19,11 +19,18 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "create_date")
     private LocalDateTime createDate;
+
+    @Column(name = "last_update_date")
+    private LocalDateTime lastUpdateDate;
+
     @Column(name = "conclusion_date")
     private LocalDateTime conclusionDate;
+
     private BigDecimal total;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
@@ -42,4 +49,14 @@ public class Order {
 
     @OneToOne(mappedBy = "order")
     private Invoice invoice;
+
+    @PrePersist
+    public void prePersist() {
+        this.createDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.lastUpdateDate = LocalDateTime.now();
+    }
 }

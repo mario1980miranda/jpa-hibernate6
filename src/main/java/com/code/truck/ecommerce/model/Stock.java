@@ -15,6 +15,7 @@ public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Integer quantity;
 
     @OneToOne(optional = false)

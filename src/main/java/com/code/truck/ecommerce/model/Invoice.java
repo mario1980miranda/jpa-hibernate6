@@ -17,7 +17,9 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String xml;
+
     @Column(name = "issue_date")
     private Date issueDate;
 

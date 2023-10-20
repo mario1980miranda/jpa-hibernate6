@@ -1,4 +1,4 @@
-package com.code.truck.ecommerce.relationships;
+package com.code.truck.ecommerce.advanced_mapping;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.*;
@@ -8,36 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ManyToOneTests extends EntityManagerBaseTests {
-    @Test
-    public void verifyOrderToClientRelationship() {
-        Client client = entityManager.find(Client.class, 1);
-
-        AddressDeliver address = new AddressDeliver();
-        address.setPostalCode("A1A 1A1");
-        address.setRue("6571, Blaze Pascale");
-        address.setCity("Québec");
-        address.setProvince("Québec");
-
-        Order order = new Order();
-        order.setCreateDate(LocalDateTime.now());
-        order.setStatus(OrderStatus.WAITING);
-
-        order.setAddress(address);
-        order.setClient(client);
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(order);
-        entityManager.getTransaction().commit();
-        entityManager.clear();
-
-        Order orderToAssert = entityManager.find(Order.class, order.getId());
-        System.out.println(orderToAssert);
-        Assertions.assertNotNull(orderToAssert.getClient());
-    }
+public class CompositeKeysTests extends EntityManagerBaseTests {
 
     @Test
-    public void verifyOrderItemToOrderAndOrderItemToProduct() {
+    public void verifyCompositeKeysOrderItemOrderIdAndOrderItemProductId() {
 
         entityManager.getTransaction().begin();
 
@@ -62,12 +36,20 @@ public class ManyToOneTests extends EntityManagerBaseTests {
         orderItem.setProductPrice(product.getPrice());
 
         entityManager.persist(orderItem);
+
         entityManager.getTransaction().commit();
         entityManager.clear();
 
         OrderItem orderItemToAssert = entityManager.find(OrderItem.class, new OrderItemId(order.getId(), product.getId()));
-        System.out.println(orderItemToAssert);
         Assertions.assertNotNull(orderItemToAssert.getOrder());
         Assertions.assertNotNull(orderItemToAssert.getProduct());
+    }
+
+    @Test
+    public void findEntityWithCompositeKeysShouldReturnFromDatabase() {
+
+        OrderItem orderItem = entityManager.find(OrderItem.class, new OrderItemId(1, 1));
+
+        Assertions.assertNotNull(orderItem);
     }
 }

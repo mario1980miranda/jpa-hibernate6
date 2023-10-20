@@ -7,3 +7,4 @@ INSERT INTO tb_client (id, name) VALUES (1,'Mario Miranda');
 INSERT INTO tb_client (id, name) VALUES (2,'Christina Chan');
 INSERT INTO tb_client (id, name) VALUES (3, 'Gatusca & Nino');
 INSERT INTO tb_order (client_id,id,total,conclusion_date,create_date,city,complement,postal_code,province,rue,status) VALUES (1,1,10000,null,sysdate(),'Curitba','Apto 101','840-9204','Parana','Dr Goulin',null);
+INSERT INTO tb_order_item (order_id, product_id, product_price, quantity) VALUES (1, 1, 10.0, 2);

@@ -12,12 +12,18 @@ import java.math.BigDecimal;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@IdClass(OrderItemId.class)
 @Table(name = "tb_order_item")
 public class OrderItem {
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "order_id")
+    private Integer orderId;
+
+    @EqualsAndHashCode.Include
+    @Id
+    @Column(name = "product_id")
+    private Integer productId;
 
     @Column(name = "product_price")
     private BigDecimal productPrice;
@@ -25,10 +31,10 @@ public class OrderItem {
     private Integer quantity;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
 }

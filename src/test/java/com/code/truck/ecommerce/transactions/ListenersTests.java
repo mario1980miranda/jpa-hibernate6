@@ -15,6 +15,7 @@ public class ListenersTests extends EntityManagerBaseTests {
 
         Client client = entityManager.find(Client.class, 1);
         Product product1 = entityManager.find(Product.class, 1);
+        Product product2 = entityManager.find(Product.class, 2);
 
         entityManager.getTransaction().begin();
 
@@ -25,23 +26,29 @@ public class ListenersTests extends EntityManagerBaseTests {
         Assertions.assertNull(order.getCreateDate());
         Assertions.assertNull(order.getLastUpdateDate());
 
+        entityManager.persist(order);
+        entityManager.flush();
+
         OrderItem item1 = new OrderItem();
+        item1.setOrderId(order.getId());
+        item1.setProductId(product1.getId());
         item1.setOrder(order);
         item1.setProduct(product1);
-        item1.setProductPrice(new BigDecimal("10.00"));
+        item1.setProductPrice(product1.getPrice());
         item1.setQuantity(2);
 
         OrderItem item2 = new OrderItem();
+        item2.setOrderId(order.getId());
+        item2.setProductId(product2.getId());
         item2.setOrder(order);
-        item2.setProduct(product1);
-        item2.setProductPrice(new BigDecimal("3.00"));
+        item2.setProduct(product2);
+        item2.setProductPrice(product2.getPrice());
         item2.setQuantity(5);
 
         order.setOrderItems(Arrays.asList(item1, item2));
 
         System.out.println("Items is empty: " + order.getOrderItems().isEmpty());
 
-        entityManager.persist(order);
         entityManager.persist(item1);
         entityManager.persist(item2);
 

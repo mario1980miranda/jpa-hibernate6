@@ -37,8 +37,11 @@ public class OneToManyTests extends EntityManagerBaseTests {
 
     @Test
     public void verifyOrderToOrderItemAndProductToOrderItem() {
+
         Product product = entityManager.find(Product.class, 1);
         Client client = entityManager.find(Client.class, 1);
+
+        entityManager.getTransaction().begin();
 
         Order order = new Order();
         order.setTotal(BigDecimal.TEN);
@@ -46,14 +49,17 @@ public class OneToManyTests extends EntityManagerBaseTests {
         order.setCreateDate(LocalDateTime.now());
         order.setClient(client);
 
+        entityManager.persist(order);
+        entityManager.flush();
+
         OrderItem orderItem = new OrderItem();
+        orderItem.setOrderId(order.getId());
+        orderItem.setProductId(product.getId());
         orderItem.setOrder(order);
         orderItem.setProduct(product);
         orderItem.setQuantity(1);
         orderItem.setProductPrice(product.getPrice());
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(order);
         entityManager.persist(orderItem);
         entityManager.getTransaction().commit();
         entityManager.clear();

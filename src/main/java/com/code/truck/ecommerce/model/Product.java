@@ -21,6 +21,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "create_date", updatable = false)
+    private LocalDateTime createDate;
+
+    @Column(name = "last_update_date", insertable = false)
+    private LocalDateTime lasUpdateDate;
+
     private String name;
 
     private String description;

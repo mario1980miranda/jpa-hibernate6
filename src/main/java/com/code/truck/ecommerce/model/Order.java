@@ -22,10 +22,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
-    @Column(name = "last_update_date")
+    @Column(name = "last_update_date", insertable = false)
     private LocalDateTime lastUpdateDate;
 
     @Column(name = "conclusion_date")

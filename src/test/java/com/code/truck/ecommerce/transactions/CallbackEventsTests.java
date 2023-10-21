@@ -32,16 +32,18 @@ public class CallbackEventsTests extends EntityManagerBaseTests {
         entityManager.flush();
 
         OrderItem item1 = new OrderItem();
-        item1.setOrderId(order.getId());
-        item1.setProductId(product1.getId());
+//        item1.setOrderId(order.getId()); // @IdClass
+//        item1.setProductId(product1.getId()); // @IdClass
+        item1.setId(new OrderItemId(order.getId(), product1.getId()));
         item1.setOrder(order);
         item1.setProduct(product1);
         item1.setProductPrice(new BigDecimal("10.00"));
         item1.setQuantity(2);
 
         OrderItem item2 = new OrderItem();
-        item2.setOrderId(order.getId());
-        item2.setProductId(product2.getId());
+//        item2.setOrderId(order.getId()); // @IdClass
+//        item2.setProductId(product2.getId()); // @IdClass
+        item2.setId(new OrderItemId(order.getId(), product2.getId()));
         item2.setOrder(order);
         item2.setProduct(product2);
         item2.setProductPrice(new BigDecimal("3.00"));

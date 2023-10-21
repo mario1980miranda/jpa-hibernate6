@@ -1,7 +1,5 @@
 # Mapping Composite Keys
 
-## @IdClass
-
 ```mermaid
 ---
 title : Composite Key
@@ -26,6 +24,9 @@ erDiagram
         bigint price
     }
 ```
+
+## @IdClass
+
 * Create a class to comport the composite ids :
 
 ```java
@@ -127,4 +128,62 @@ public class OrderItem {
         Assertions.assertNotNull(orderItemToAssert.getOrder());
         Assertions.assertNotNull(orderItemToAssert.getProduct());
     }
+```
+
+## EmbeddedId
+
+* Create a class to comport the properties of the entities involved :
+
+```java
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import lombok.*;
+
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Embeddable
+public class OrderItemId {
+
+    @EqualsAndHashCode.Include
+    @Column(name = "order_id")
+    private Integer orderId;
+
+    @EqualsAndHashCode.Include
+    @Column(name = "product_id")
+    private Integer productId;
+}
+```
+
+This class **MUST** have the annotation @Embeddable and any other needed JPA annotation (in this case @Column)
+
+* The class OrderItem need the annotation @EmbeddedId in the property that references the composite key and the 
+annotation IdClass is not necessary
+
+```java
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "tb_order_item")
+public class OrderItem {
+
+    @EmbeddedId
+    private OrderItemId id;
+
+    @Column(name = "product_price")
+    private BigDecimal productPrice;
+
+    private Integer quantity;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    private Order order;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
+}
 ```

@@ -53,8 +53,9 @@ public class OneToManyTests extends EntityManagerBaseTests {
         entityManager.flush();
 
         OrderItem orderItem = new OrderItem();
-        orderItem.setOrderId(order.getId());
-        orderItem.setProductId(product.getId());
+//        orderItem.setOrderId(order.getId()); // @IdClass
+//        orderItem.setProductId(product.getId()); // @IdClass
+        orderItem.setId(new OrderItemId(order.getId(), product.getId()));
         orderItem.setOrder(order);
         orderItem.setProduct(product);
         orderItem.setQuantity(1);

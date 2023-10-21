@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -12,18 +11,11 @@ import java.math.BigDecimal;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@IdClass(OrderItemId.class)
 @Table(name = "tb_order_item")
 public class OrderItem {
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "order_id")
-    private Integer orderId;
 
-    @EqualsAndHashCode.Include
-    @Id
-    @Column(name = "product_id")
-    private Integer productId;
+    @EmbeddedId
+    private OrderItemId id;
 
     @Column(name = "product_price")
     private BigDecimal productPrice;

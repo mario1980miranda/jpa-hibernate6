@@ -130,7 +130,7 @@ public class OrderItem {
     }
 ```
 
-## EmbeddedId
+## @EmbeddedId
 
 * Create a class to comport the properties of the entities involved :
 
@@ -185,5 +185,91 @@ public class OrderItem {
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
+}
+```
+
+## @MapsId
+
+Used when a table have a Primary Key that is at the same time Foreign Key of another table.
+
+In this project, for example, an Invoice exists when it has an Order in a "One To One" relation.
+
+In this case the Id should be shared between Invoice and Order :
+
+```mermaid
+---
+title: order_id PK of TB_INVOICE
+---
+erDiagram
+    TB_INVOICE ||--o| TB_ORDER : contains
+    TB_INVOICE {
+        integer order_id PK,FK
+        varchar xml
+    }
+    TB_ORDER {
+        integer id PK
+        timestamp create_date
+    }
+```
+
+```java
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "tb_invoice")
+public class Invoice {
+    @EqualsAndHashCode.Include
+    @Id
+    @Column(name = "order_id")
+    private Integer id;
+
+    @MapsId
+    @OneToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    private String xml;
+
+    @Column(name = "issue_date")
+    private Date issueDate;
+}
+```
+
+> Important : for best readability is the OrderItem where we can use @MapsId to map the composite key eliminating the 
+> usage of updatable=false and insertable=false.
+
+```java
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "tb_order_item")
+public class OrderItem {
+
+    @EmbeddedId
+    private OrderItemId id;
+
+    @MapsId("orderId")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @MapsId("productId")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(name = "product_price")
+    private BigDecimal productPrice;
+
+    private Integer quantity;
 }
 ```

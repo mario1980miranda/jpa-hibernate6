@@ -30,7 +30,8 @@ public class CompositeKeysTests extends EntityManagerBaseTests {
         OrderItem orderItem = new OrderItem();
 //        orderItem.setOrderId(order.getId()); // @IdClass
 //        orderItem.setProductId(product.getId()); // @IdClass
-        orderItem.setId(new OrderItemId(order.getId(), product.getId()));
+//        orderItem.setId(new OrderItemId(order.getId(), product.getId())); // update=false,insert=false
+        orderItem.setId(new OrderItemId());
         orderItem.setOrder(order);
         orderItem.setProduct(product);
         orderItem.setQuantity(1);

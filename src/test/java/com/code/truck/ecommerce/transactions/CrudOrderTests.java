@@ -36,7 +36,7 @@ public class CrudOrderTests extends EntityManagerBaseTests {
         entityManager.getTransaction().commit();
         entityManager.clear();
 
-        Order orderToAssert = entityManager.find(Order.class, 1);
+        Order orderToAssert = entityManager.find(Order.class, order.getId());
         Assertions.assertNotNull(orderToAssert);
         Assertions.assertNotNull(orderToAssert.getAddress());
     }

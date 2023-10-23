@@ -15,17 +15,16 @@ import java.util.Date;
 public class Invoice {
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Integer id;
+
+    @MapsId
+    @OneToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private String xml;
 
     @Column(name = "issue_date")
     private Date issueDate;
-
-    @OneToOne(optional = false)
-    @JoinTable(name = "tb_invoice_order",
-            joinColumns = @JoinColumn(name = "invoice_id", unique = true),
-            inverseJoinColumns = @JoinColumn(name = "order_id", unique = true))
-    private Order order;
 }

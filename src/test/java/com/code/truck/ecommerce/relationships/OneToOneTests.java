@@ -8,7 +8,6 @@ import com.code.truck.ecommerce.model.PaymentStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class OneToOneTests extends EntityManagerBaseTests {

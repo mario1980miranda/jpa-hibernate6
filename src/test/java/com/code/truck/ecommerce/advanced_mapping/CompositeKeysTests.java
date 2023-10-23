@@ -24,8 +24,8 @@ public class CompositeKeysTests extends EntityManagerBaseTests {
         order.setCreateDate(LocalDateTime.now());
         order.setClient(client);
 
-        entityManager.persist(order);
-        entityManager.flush();
+//        entityManager.persist(order);
+//        entityManager.flush(); // don't to persist and flush order since we used @MapsId in OrderItem
 
         OrderItem orderItem = new OrderItem();
 //        orderItem.setOrderId(order.getId()); // @IdClass

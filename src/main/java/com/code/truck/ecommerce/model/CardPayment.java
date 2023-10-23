@@ -13,13 +13,16 @@ import lombok.Setter;
 public class CardPayment {
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Integer id;
+
+    @MapsId
+    @OneToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
     private String number;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "order_id")
-    private Order order;
 }

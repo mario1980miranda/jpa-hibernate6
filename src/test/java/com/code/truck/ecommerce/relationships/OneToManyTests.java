@@ -49,9 +49,6 @@ public class OneToManyTests extends EntityManagerBaseTests {
         order.setCreateDate(LocalDateTime.now());
         order.setClient(client);
 
-        entityManager.persist(order);
-        entityManager.flush();
-
         OrderItem orderItem = new OrderItem();
         orderItem.setId(new OrderItemId());
         orderItem.setOrder(order);

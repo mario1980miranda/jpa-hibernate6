@@ -205,3 +205,7 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
     at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:766)
     ... 5 more
 ```
+
+### Transient properties
+
+@Transient is a property that will be ignored by JPA, it will not be created into the database nor saved.

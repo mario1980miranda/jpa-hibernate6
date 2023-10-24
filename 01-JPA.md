@@ -209,3 +209,21 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 ### Transient properties
 
 @Transient is a property that will be ignored by JPA, it will not be created into the database nor saved.
+
+### Element collection
+
+@ElementCollection is used for collections of simple types : String, Integer, etc...
+
+```java
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+// ... code ommited
+    @ElementCollection
+    @CollectionTable(name = "tb_product_tag", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "tag")
+    private List<String> tags;
+```
+
+![@ElementCollection](docs/tb_product_tag.png)
+

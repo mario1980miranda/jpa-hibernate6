@@ -43,7 +43,7 @@ public class Order {
     @Id
     private Integer id;
     
-    //... code ommited
+    //... code omitted for brevity
     
     @PrePersist
     @PreUpdate
@@ -65,7 +65,7 @@ public class Order {
 ```java
 import jakarta.persistence.PostPersist;
 
-    //... code ommited
+    //... code omitted for brevity
 
     @PostPersist
     public void postPersist(){

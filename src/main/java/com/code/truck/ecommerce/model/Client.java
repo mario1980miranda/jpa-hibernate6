@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -19,6 +20,14 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "tb_client_contact_type",
+            joinColumns = @JoinColumn(name = "client_id"))
+    @MapKeyColumn(name = "type")
+    @Column(name = "description")
+    private Map<String, String> contactTypes;
 
     @Transient
     private String firstName;

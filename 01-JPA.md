@@ -208,13 +208,27 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 
 ### Transient properties
 
-@Transient is a property that will be ignored by JPA, it will not be created into the database nor saved.
+**@Transient** is a property that will be ignored by JPA, it will not be created into the database nor saved.
 
 ### Element collection
 
 #### Simple types
 
-@ElementCollection is used for collections of simple types : String, Integer, etc...
+```mermaid
+erDiagram
+    TB_PRODUCT ||--o{ TB_PRODUCT_TAG : contains
+    TB_PRODUCT {
+        integer id PK
+    }
+    TB_PRODUCT_TAG {
+        integer product_id FK
+        varchar tag
+    }
+```
+
+***@ElementCollection*** is used for collections of simple types : String, Integer, etc...
+
+> Use in combination with **@CollectionTable**
 
 ```java
 import jakarta.persistence.CollectionTable;
@@ -224,7 +238,7 @@ import jakarta.persistence.ElementCollection;
 @Entity
 @Table(name = "tb_product")
 public class Product {
-    // ... code ommited
+    // ... code omitted for brevity
     @ElementCollection
     @CollectionTable(name = "tb_product_tag", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag")
@@ -236,7 +250,22 @@ public class Product {
 
 #### Embeddable classes
 
-@ElementCollection can be used with embeddable classes :
+```mermaid
+erDiagram
+    TB_PRODUCT ||--o{ TB_PRODUCT_CHARACTERISTIC : contains
+    TB_PRODUCT {
+        integer id PK
+    }
+    TB_PRODUCT_CHARACTERISTIC {
+        integer product_id FK
+        varchar characteristic_name
+        varchar characteristic_value
+    }
+```
+
+***@ElementCollection*** can be used with embeddable classes :
+
+> Use in combination with : ***@Embeddable*** and ***@CollectionTable***
 
 ```java
 import jakarta.persistence.Column;
@@ -259,11 +288,38 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_product")
 public class Product {
-    // ... code ommited
+    // ... code omitted for brevity
     @ElementCollection
     @CollectionTable(name = "tb_product_characteristic", joinColumns = @JoinColumn(name = "product_id"))
     private List<Attributes> attributes;
 }
 ```
 
+![Embeddable classes](docs/tb_product_characteristic.png)
 
+#### Map of simple types
+
+@ElementCollection can be used to configure tables from ***java.util.Map<K,V>*** as follows :
+Use in combination with :
+
+@CollectionTable
+@MapKeyColumn
+
+```java
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_client")
+public class Client {
+    // ... code omitted for brevity
+    @ElementCollection
+    @CollectionTable(
+            name = "tb_client_contact_type",
+            joinColumns = @JoinColumn(name = "client_id"))
+    @MapKeyColumn(name = "type")
+    @Column(name = "description")
+    private Map<String, String> contactTypes;
+}
+```
+
+![MapKeyColumn](docs/tb_client_contact_type.png)

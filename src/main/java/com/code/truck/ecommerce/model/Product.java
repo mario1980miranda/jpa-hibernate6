@@ -46,4 +46,8 @@ public class Product {
     @CollectionTable(name = "tb_product_tag", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag")
     private List<String> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "tb_product_characteristic", joinColumns = @JoinColumn(name = "product_id"))
+    private List<Attributes> attributes;
 }

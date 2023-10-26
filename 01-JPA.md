@@ -212,18 +212,58 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 
 ### Element collection
 
+#### Simple types
+
 @ElementCollection is used for collections of simple types : String, Integer, etc...
 
 ```java
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
-// ... code ommited
+
+@Entity
+@Table(name = "tb_product")
+public class Product {
+    // ... code ommited
     @ElementCollection
     @CollectionTable(name = "tb_product_tag", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag")
     private List<String> tags;
+}
 ```
 
 ![@ElementCollection](docs/tb_product_tag.png)
+
+#### Embeddable classes
+
+@ElementCollection can be used with embeddable classes :
+
+```java
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
+public class Attributes {
+
+    @Column(name = "characteristic_name")
+    private String key;
+
+    @Column(name = "characteristic_value")
+    private String value;
+}
+```
+
+```java
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_product")
+public class Product {
+    // ... code ommited
+    @ElementCollection
+    @CollectionTable(name = "tb_product_characteristic", joinColumns = @JoinColumn(name = "product_id"))
+    private List<Attributes> attributes;
+}
+```
+
 

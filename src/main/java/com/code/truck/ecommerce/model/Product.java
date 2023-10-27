@@ -50,4 +50,6 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "tb_product_characteristic", joinColumns = @JoinColumn(name = "product_id"))
     private List<Attributes> attributes;
+
+    // TODO : add product photo
 }

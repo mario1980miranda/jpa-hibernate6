@@ -352,3 +352,49 @@ public class Invoice {
 > **@Column default length is 255**
 
 ![Lob with @Column](docs/lob-with-column-length.png)
+
+## Secondary table
+
+***@SecondaryTable***
+
+***@PrimaryKeyJoinColumn***
+
+***@Column(table = "...")***
+
+```mermaid
+---
+title: Secondary table TB_CLIENT_DETAILS
+---
+erDiagram
+    TB_CLIENT ||--o| TB_CLIENT_DETAILS : has
+    TB_CLIENT {
+        integer id PK
+        varchar name
+    }
+    TB_CLIENT_DETAILS {
+        integer client_id PK,FK
+        date birth_date
+    }
+```
+
+```java
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.SecondaryTable;
+
+@Entity
+@Table(name = "tb_client")
+@SecondaryTable(name = "tb_client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "client_id"))
+public class Client {
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(table = "tb_client_details")
+    @Enumerated(EnumType.STRING)
+    private GenderClient gender;
+
+    @Column(name = "birth_date", table = "tb_client_details")
+    private LocalDate birthDate;
+}
+```

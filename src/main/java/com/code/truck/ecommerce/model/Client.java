@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +14,7 @@ import java.util.Map;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_client")
+@SecondaryTable(name = "tb_client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "client_id"))
 public class Client {
     @EqualsAndHashCode.Include
     @Id
@@ -32,8 +33,12 @@ public class Client {
     @Transient
     private String firstName;
 
+    @Column(table = "tb_client_details")
     @Enumerated(EnumType.STRING)
     private GenderClient gender;
+
+    @Column(name = "birth_date", table = "tb_client_details")
+    private LocalDate birthDate;
 
     @OneToMany(mappedBy = "client")
     private List<Order> orders;

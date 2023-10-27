@@ -4,7 +4,6 @@ import com.code.truck.ecommerce.listeners.InvoiceListener;
 import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import com.code.truck.ecommerce.model.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

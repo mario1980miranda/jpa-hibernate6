@@ -1,8 +1,10 @@
 package com.code.truck.ecommerce.model;
 
 import com.code.truck.ecommerce.model.base.BaseEntityInteger;
-import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 

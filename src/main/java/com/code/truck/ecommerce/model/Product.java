@@ -2,10 +2,8 @@ package com.code.truck.ecommerce.model;
 
 import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

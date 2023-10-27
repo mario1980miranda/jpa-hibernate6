@@ -323,3 +323,32 @@ public class Client {
 ```
 
 ![MapKeyColumn](docs/tb_client_contact_type.png)
+
+## @Lob
+
+JPA can handle Large objects with the use of @Lob in byte[] class attributes as follows :
+
+```java
+import jakarta.persistence.Lob;
+import org.hibernate.annotations.JdbcTypeCode;
+
+@Entity
+@Table(name = "tb_invoice")
+public class Invoice {
+    // ... code omitted for brevity
+    @Lob
+    @JdbcTypeCode(Types.LONGVARBINARY)
+    private byte[] xml;
+
+}
+```
+
+> @JdbcTypeCode(Types.LONGVARBINARY) will reserve 32600 of length in the database.
+
+![Lob Type Long Value Default](docs/lob-type-32600.png)
+
+> We can control its size with @Column(lenght=...)
+> 
+> **@Column default length is 255**
+
+![Lob with @Column](docs/lob-with-column-length.png)

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.Date;
 
 @Getter
@@ -23,7 +25,10 @@ public class Invoice {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private String xml;
+    @Lob
+    //@Column(length = 1000)
+    @JdbcTypeCode(Types.LONGVARBINARY)
+    private byte[] xml;
 
     @Column(name = "issue_date")
     private Date issueDate;

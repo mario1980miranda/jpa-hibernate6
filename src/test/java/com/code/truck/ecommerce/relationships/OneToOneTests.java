@@ -37,7 +37,6 @@ public class OneToOneTests extends EntityManagerBaseTests {
         Order order = entityManager.find(Order.class, 1);
 
         Invoice invoice = new Invoice();
-        invoice.setXml("<xml>goes here</xml>");
         invoice.setIssueDate(new Date());
         invoice.setOrder(order);
 

@@ -4,7 +4,7 @@ import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.CardPayment;
 import com.code.truck.ecommerce.model.Invoice;
 import com.code.truck.ecommerce.model.Order;
-import com.code.truck.ecommerce.model.PaymentStatus;
+import com.code.truck.ecommerce.model.enums.PaymentStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

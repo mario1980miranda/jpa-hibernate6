@@ -2,7 +2,7 @@ package com.code.truck.ecommerce.basic_mapping;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.Client;
-import com.code.truck.ecommerce.model.GenderClient;
+import com.code.truck.ecommerce.model.enums.GenderClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -2,7 +2,7 @@ package com.code.truck.ecommerce.transactions;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.Order;
-import com.code.truck.ecommerce.model.OrderStatus;
+import com.code.truck.ecommerce.model.enums.OrderStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

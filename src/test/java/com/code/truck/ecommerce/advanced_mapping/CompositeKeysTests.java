@@ -2,6 +2,7 @@ package com.code.truck.ecommerce.advanced_mapping;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.*;
+import com.code.truck.ecommerce.model.enums.OrderStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

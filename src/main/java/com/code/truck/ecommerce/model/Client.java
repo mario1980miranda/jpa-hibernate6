@@ -1,7 +1,8 @@
 package com.code.truck.ecommerce.model;
 
+import com.code.truck.ecommerce.model.base.BaseEntityInteger;
+import com.code.truck.ecommerce.model.enums.GenderClient;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,15 +12,11 @@ import java.util.Map;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_client")
 @SecondaryTable(name = "tb_client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "client_id"))
-public class Client {
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Client extends BaseEntityInteger {
+
     private String name;
 
     @ElementCollection

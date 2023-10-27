@@ -1,5 +1,6 @@
 package com.code.truck.ecommerce.model;
 
+import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,14 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_stock")
-public class Stock {
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Stock extends BaseEntityInteger {
 
     private Integer quantity;
 

@@ -2,13 +2,12 @@ package com.code.truck.ecommerce.transactions;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.*;
+import com.code.truck.ecommerce.model.enums.OrderStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class CallbackEventsTests extends EntityManagerBaseTests {
 

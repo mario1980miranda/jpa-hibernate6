@@ -1,6 +1,8 @@
 package com.code.truck.ecommerce.model;
 
 import com.code.truck.ecommerce.listeners.InvoiceListener;
+import com.code.truck.ecommerce.model.base.BaseEntityInteger;
+import com.code.truck.ecommerce.model.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,15 +14,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners({ InvoiceListener.class })
 @Entity
 @Table(name = "tb_order")
-public class Order {
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Order extends BaseEntityInteger {
 
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;

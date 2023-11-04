@@ -16,10 +16,10 @@ public class TransactionManagementTests extends EntityManagerBaseTests {
             try {
                 entityManager.getTransaction().begin();
 
-                Order order = entityManager.find(Order.class, 1);
+                Order order = entityManager.find(Order.class, 2);
                 order.setStatus(OrderStatus.PAID);
 
-                if (order.getCardPayment() == null) {
+                if (order.getPayment() == null) {
                     throw new RuntimeException("Order not paid");
                 }
 
@@ -57,11 +57,11 @@ public class TransactionManagementTests extends EntityManagerBaseTests {
 
     private void businessRule() {
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = entityManager.find(Order.class, 2);
 
         order.setStatus(OrderStatus.PAID);
 
-        if (order.getCardPayment() == null)
+        if (order.getPayment() == null)
             throw new RuntimeException("Order is not paid.");
 
     }

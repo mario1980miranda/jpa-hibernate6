@@ -15,10 +15,10 @@ public class OneToOneTests extends EntityManagerBaseTests {
     @Test
     public void verifyCardPaymentToOrder() {
 
-        Order order = entityManager.find(Order.class, 1);
+        Order order = entityManager.find(Order.class, 2);
 
         CardPayment cardPayment = new CardPayment();
-        cardPayment.setNumber("1234 5678 9012 3456");
+        cardPayment.setCardNumber("1234 5678 9012 3456");
         cardPayment.setStatus(PaymentStatus.PROCESSING);
         cardPayment.setOrder(order);
 
@@ -28,7 +28,7 @@ public class OneToOneTests extends EntityManagerBaseTests {
         entityManager.clear();
 
         Order orderToAssert = entityManager.find(Order.class, order.getId());
-        Assertions.assertNotNull(orderToAssert.getCardPayment());
+        Assertions.assertNotNull(orderToAssert.getPayment());
     }
 
     @Test

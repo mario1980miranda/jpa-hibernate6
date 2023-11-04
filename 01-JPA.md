@@ -398,5 +398,3 @@ public class Client {
     private LocalDate birthDate;
 }
 ```
-
-## @MappedSuperclass

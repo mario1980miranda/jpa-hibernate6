@@ -43,7 +43,7 @@ public class Order extends BaseEntityInteger {
     private List<OrderItem> orderItems;
 
     @OneToOne(mappedBy = "order")
-    private CardPayment cardPayment;
+    private Payment payment;
 
     @OneToOne(mappedBy = "order")
     private Invoice invoice;

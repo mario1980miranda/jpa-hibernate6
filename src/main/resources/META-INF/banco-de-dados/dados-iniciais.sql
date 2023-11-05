@@ -13,4 +13,4 @@ INSERT INTO tb_order(`id`,`client_id`,`total`,`create_date`,`city`,`postal_code`
 INSERT INTO tb_order_item (order_id, product_id, product_price, quantity) VALUES (1, 1, 500, 2);
 INSERT INTO tb_order_item (order_id, product_id, product_price, quantity) VALUES (2, 1, 500, 1);
 --INSERT INTO tb_payment (order_id, status, card_number) VALUES (1, 'PROCESSING', '0123 4567 7890 1234');
-INSERT INTO tb_payment (order_id, discriminator, status, card_number) VALUES (1, 'C', 'PROCESSING', '0123 4567 7890 1234');
+INSERT INTO tb_payment (order_id, payment_type, status, card_number) VALUES (1, 'card', 'PROCESSING', '0123 4567 7890 1234');

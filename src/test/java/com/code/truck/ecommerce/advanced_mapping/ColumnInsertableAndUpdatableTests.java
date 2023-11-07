@@ -5,6 +5,7 @@ import com.code.truck.ecommerce.model.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -41,6 +42,7 @@ public class ColumnInsertableAndUpdatableTests extends EntityManagerBaseTests {
         product.setDescription("During INSERT the column annotated with insertable=false should not take effect");
         product.setCreateDate(LocalDateTime.now());
         product.setLasUpdateDate(LocalDateTime.now());
+        product.setPrice(new BigDecimal("9.99"));
 
         entityManager.getTransaction().begin();
 

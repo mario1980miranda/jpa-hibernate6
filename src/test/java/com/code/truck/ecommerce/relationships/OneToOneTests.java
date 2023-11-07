@@ -39,6 +39,7 @@ public class OneToOneTests extends EntityManagerBaseTests {
         Invoice invoice = new Invoice();
         invoice.setIssueDate(new Date());
         invoice.setOrder(order);
+        invoice.setXml("<xml/>".getBytes());
 
         entityManager.getTransaction().begin();
         entityManager.persist(invoice);

@@ -15,6 +15,7 @@ public class CrudClientTests extends EntityManagerBaseTests {
         Client client = new Client();
         //client.setId(4); commented because of the primary key auto increment strategy
         client.setName(NAME);
+        client.setCpf("14785236900");
 
         entityManager.getTransaction().begin();
         entityManager.persist(client);

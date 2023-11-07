@@ -21,10 +21,10 @@ public class Invoice extends BaseEntityInteger {
     private Order order;
 
     @Lob
-    //@Column(length = 1000)
+    @Column(nullable = false)
     @JdbcTypeCode(Types.LONGVARBINARY)
     private byte[] xml;
 
-    @Column(name = "issue_date")
+    @Column(name = "issue_date", nullable = false)
     private Date issueDate;
 }

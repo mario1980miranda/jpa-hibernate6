@@ -21,8 +21,10 @@ import java.util.Map;
 @SecondaryTable(name = "tb_client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "client_id"))
 public class Client extends BaseEntityInteger {
 
+    @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(length = 14, nullable = false)
     private String cpf;
 
     @ElementCollection
@@ -36,7 +38,7 @@ public class Client extends BaseEntityInteger {
     @Transient
     private String firstName;
 
-    @Column(table = "tb_client_details")
+    @Column(table = "tb_client_details", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private GenderClient gender;
 

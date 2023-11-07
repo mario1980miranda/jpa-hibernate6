@@ -1,10 +1,7 @@
 package com.code.truck.ecommerce.model;
 
 import com.code.truck.ecommerce.model.base.BaseEntityInteger;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +11,7 @@ import lombok.Setter;
 @Table(name = "tb_stock")
 public class Stock extends BaseEntityInteger {
 
+    @Column(nullable = false)
     private Integer quantity;
 
     @OneToOne(optional = false)

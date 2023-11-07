@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "tb_category", uniqueConstraints = {@UniqueConstraint(name = "unq_category_name", columnNames = {"name"})})
 public class Category extends BaseEntityInteger {
 
+    @Column(length = 100, nullable = false)
     private String name;
 
     @ManyToOne

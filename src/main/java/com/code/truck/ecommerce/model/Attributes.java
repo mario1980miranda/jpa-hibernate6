@@ -14,7 +14,7 @@ import lombok.Setter;
 @Embeddable
 public class Attributes {
 
-    @Column(name = "characteristic_name")
+    @Column(name = "characteristic_name", length = 100, nullable = false)
     private String key;
 
     @Column(name = "characteristic_value")

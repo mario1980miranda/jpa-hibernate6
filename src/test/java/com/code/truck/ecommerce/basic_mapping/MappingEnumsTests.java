@@ -15,6 +15,7 @@ public class MappingEnumsTests extends EntityManagerBaseTests {
         //client.setId(5); commented because of the primary key auto increment strategy
         client.setName("James Hatfield");
         client.setGender(GenderClient.MALE);
+        client.setCpf("33333333333");
 
         entityManager.getTransaction().begin();
         entityManager.persist(client);

@@ -15,10 +15,10 @@ public class ManyToOneTests extends EntityManagerBaseTests {
         Client client = entityManager.find(Client.class, 1);
 
         AddressDeliver address = new AddressDeliver();
-        address.setPostalCode("A1A 1A1");
+        address.setPostalCode("A1A1A1");
         address.setRue("6571, Blaze Pascale");
         address.setCity("Québec");
-        address.setProvince("Québec");
+        address.setProvince("QC");
 
         Order order = new Order();
         order.setCreateDate(LocalDateTime.now());

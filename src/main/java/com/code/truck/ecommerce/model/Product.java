@@ -4,8 +4,10 @@ import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,5 +51,7 @@ public class Product extends BaseEntityInteger {
     @CollectionTable(name = "tb_product_characteristic", joinColumns = @JoinColumn(name = "product_id"))
     private List<Attributes> attributes;
 
-    // TODO : add product photo
+    @Lob
+    @JdbcTypeCode(Types.LONGVARBINARY)
+    private byte[] photo;
 }

@@ -18,6 +18,7 @@ public abstract class Payment extends BaseEntityInteger {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 }

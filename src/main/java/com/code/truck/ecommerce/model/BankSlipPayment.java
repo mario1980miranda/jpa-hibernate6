@@ -12,7 +12,7 @@ import lombok.Setter;
 @DiscriminatorValue("bank_slip")
 public class BankSlipPayment extends Payment {
 
-    @Column(name = "bar_code")
+    @Column(name = "bar_code", length = 100)
     private String barCode;
 
 }

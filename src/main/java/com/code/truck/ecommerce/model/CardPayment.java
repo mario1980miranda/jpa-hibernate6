@@ -12,7 +12,7 @@ import lombok.Setter;
 @DiscriminatorValue("card")
 public class CardPayment extends Payment {
 
-    @Column(name = "card_number")
+    @Column(name = "card_number", length = 100)
     private String cardNumber;
 
 }

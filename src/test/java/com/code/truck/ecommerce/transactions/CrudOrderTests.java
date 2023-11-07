@@ -20,8 +20,8 @@ public class CrudOrderTests extends EntityManagerBaseTests {
         AddressDeliver address = new AddressDeliver();
         address.setCity("Québec");
         address.setRue("201-770 Chemin Ste-Foy");
-        address.setProvince("Québec");
-        address.setPostalCode("A1A 1A1");
+        address.setProvince("QC");
+        address.setPostalCode("A1A1A1");
 
         Order order = new Order();
         //order.setId(1); commented because of the primary key auto increment strategy

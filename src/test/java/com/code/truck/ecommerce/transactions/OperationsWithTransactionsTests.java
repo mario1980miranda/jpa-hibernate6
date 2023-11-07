@@ -47,7 +47,7 @@ public class OperationsWithTransactionsTests extends EntityManagerBaseTests {
         product.setName("Novo Kindle Paperwhite");
         // This will cause Description and Price to be null
         //produto.setDescription("Conheça o novo Kindle, agora com bla, bla bla");
-        //produto.setPrice(BigDecimal.valueOf(499.90d));
+        product.setPrice(BigDecimal.valueOf(499.90d));
 
         entityManager.getTransaction().begin();
         entityManager.merge(product);

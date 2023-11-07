@@ -2,7 +2,6 @@ package com.code.truck.ecommerce.basic_mapping;
 
 import com.code.truck.ecommerce.EntityManagerBaseTests;
 import com.code.truck.ecommerce.model.Product;
-import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

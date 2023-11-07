@@ -12,7 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_product")
+@Table(
+        name = "tb_product",
+        uniqueConstraints = {@UniqueConstraint(name = "unq_product_name", columnNames = {"name"})},
+        indexes = {@Index(name = "idx_product_name", columnList = "name")}
+)
 public class Product extends BaseEntityInteger {
 
     @Column(name = "create_date", updatable = false)

@@ -3,6 +3,7 @@ package com.code.truck.ecommerce.model;
 import com.code.truck.ecommerce.model.base.BaseEntityInteger;
 import com.code.truck.ecommerce.model.enums.GenderClient;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +22,11 @@ import java.util.Map;
 @SecondaryTable(name = "tb_client_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "client_id"))
 public class Client extends BaseEntityInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false)
     private String name;
 
+    @NotBlank
     @Column(length = 14, nullable = false)
     private String cpf;
 

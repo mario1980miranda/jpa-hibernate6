@@ -48,7 +48,7 @@ public class LobProductTests extends EntityManagerBaseTests {
     }
 
     private byte[] loadKindlePhoto() {
-        return loadFile("/Kindle.jpg");
+        return loadFile("/kindle.jpg");
     }
 
     private byte[] loadNintendoSwitchPhoto() {

@@ -1,9 +1,6 @@
 package com.code.truck.ecommerce.model.base;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +15,7 @@ public class BaseEntityInteger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Version
+    private Integer version;
 }

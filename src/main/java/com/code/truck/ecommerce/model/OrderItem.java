@@ -17,6 +17,9 @@ public class OrderItem {
     @EmbeddedId
     private OrderItemId id;
 
+    @Version
+    private Integer version;
+
     @MapsId("orderId")
     @ManyToOne(optional = false)
     @JoinColumn(name = "order_id")

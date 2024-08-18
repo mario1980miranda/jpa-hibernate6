@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class LockOptimistic {
+public class LockOptimisticTest {
 
     protected static EntityManagerFactory entityManagerFactory;
 
@@ -90,7 +90,7 @@ public class LockOptimistic {
         Product product = entityManager3.find(Product.class, 1);
         entityManager3.close();
 
-        Assertions.assertEquals("Awesome description", product.getDescription());
+        Assertions.assertEquals("Detailed description", product.getDescription());
 
         log("test class is finished");
     }
